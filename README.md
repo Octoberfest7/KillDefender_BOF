@@ -30,5 +30,5 @@ killdefender kill - Remove privileges and set MsMpEng.exe token to untrusted ren
 
 **Compile using VS Native x64 prompt:** 
 ````
-cl.exe /c /GS- /TP BOF.cpp /FoBOF.x64.o
+cl.exe /c /GS- /TP kdbof.cpp /FoKillDefender.x64.o
 ````

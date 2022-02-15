@@ -2,7 +2,7 @@
 Beacon Object File implementation of pwn1sher's KillDefender.
 
 Features:
-CobaltStrike command checks to make sure beacon is Elevated or System and won't run if it isn't.
+CobaltStrike command checks to make sure beacon is Elevated or System and won't run if it isn't.  
 BOF enumerates username and elevates token to System if the beacon isn't already running as it.  This is necessary in order to get a handle to MsMpEng.exe
 Otherwise works the same as the original KillDefender
 **Have not tested on x86**

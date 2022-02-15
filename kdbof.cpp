@@ -1,11 +1,9 @@
-#define _WIN32_WINNT 0x06000000 // For Mingw
 #include <windows.h>
 #include <winternl.h>
 #include <tchar.h>
 #include <stdio.h>
 #include <tlhelp32.h>
 #include <conio.h>
-#include <winsvc.h>
 
 extern "C" {
 	#include "beacon.h"

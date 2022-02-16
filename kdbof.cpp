@@ -75,6 +75,7 @@ int getpid(const char * procname)
     HANDLE snapshot = KERNEL32$CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, procPID);
     if (KERNEL32$Process32First(snapshot, &processEntry))
     {
+        processName = processEntry.szExeFile;
         while (MSVCRT$_stricmp(processName, procname) != 0)
         {
             KERNEL32$Process32Next(snapshot, &processEntry);
@@ -83,6 +84,7 @@ int getpid(const char * procname)
         }
         BeaconPrintf(CALLBACK_OUTPUT, "[+] Got %s PID: %d\n", procname, procPID);
     }
+    KERNEL32$CloseHandle(snapshot);
     return procPID;
 }
 //Remove specified privilege from Access token

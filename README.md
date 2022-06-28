@@ -1,4 +1,7 @@
 # KillDefender_BOF  
+
+6/28/2022: Microsoft has rolled out a patch that prevents opening a handle to the MsMpEng.exe token, and as such this tool no longer works. Not sure the patch ID, may work on older unpatched systems.  Verified on Win10 21H2 and Win11. 
+
 Beacon Object File implementation of pwn1sher's KillDefender.  
 Original POC: https://github.com/pwn1sher/KillDefender  
 
